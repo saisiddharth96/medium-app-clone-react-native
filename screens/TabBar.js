@@ -4,14 +4,39 @@ import {
   View,
   StyleSheet,
   Text,
-  TouchableHighlight
+  TouchableOpacity
 } from "react-native";
+
+import { MonoText } from "../components/StyledText.js";
 
 const TabBar = () => {
   return (
     <View style={styles.Container}>
-      
-    </View>
+      <TouchableOpacity
+          style={{
+            paddingTop: 0,
+            flexDirection: "row",
+            justifyContent: "space-evenly"
+          }}
+          onPress={() => props.navigation.navigate("DrawerOpen")}
+        >
+          <Image
+            source={require("../assets/images/menu-icon.png")}
+            style={[styles.navImage]}
+          />
+        </TouchableOpacity>
+        <MonoText
+          style={{
+            color: "#fff",
+            paddingLeft: 30,
+            fontSize: 20,
+            fontWeight: "400"
+          }}
+        >
+          Home
+        </MonoText>
+      </View>
+    
   );
 };
 

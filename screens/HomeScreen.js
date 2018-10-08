@@ -1,73 +1,68 @@
 import React from "react";
 import {
-  Image,
   StyleSheet,
   ScrollView,
-  TouchableOpacity
+  View,
+  TouchableOpacity,
+  SafeAreaView,
+  TouchableWithoutFeedback,
+  Image
 } from "react-native";
 
 import TopScrollContainer from "./TopScrollContainer.js";
 import VerticalScrollContainer from "./VerticalScrollContainer.js";
-import { DrawerActions } from "react-navigation";
-
 import { MonoText } from "../components/StyledText";
 
-class Logo extends React.Component {
-  render() {
-    return (
-      <TouchableOpacity
-        style={{ paddingLeft: 10, paddingTop: 0, flexDirection : "row", justifyContent : "space-evenly" }}
-        onPress={() => {
-          this.props.navigation.dispatch(DrawerActions.openDrawer());
-        }}
-      >
-        <Image
-          source={require("../assets/images/menu-icon.png")}
-          style={[styles.navImage]}
-        />
-
-        <MonoText style = {{color : "#fff", paddingLeft : 30, fontSize : 20, fontWeight : "400"}}>Home</MonoText>
-      </TouchableOpacity>
-    );
-  }
-}
-
-class RightButtons extends React.Component {
-  render() {
-    return (
-      <TouchableOpacity
-        style={{ paddingRight: 10, flexDirection: "row", justifyContent : "space-between" }}
-        onPress={() => {
-          this.props.navigation.dispatch(DrawerActions.openDrawer());
-        }}
-      >
-        <Image
-          source={require("../assets/images/notification.png")}
-          style={[styles.navImage, {paddingLeft : 30, paddingRight : 30}]}
-        />
-        <Image
-          source={require("../assets/images/search.png")}
-          style={[styles.navImage]}
-        />
-      </TouchableOpacity>
-    );
-  }
-}
-
 export default class HomeScreen extends React.Component {
-  static navigationOptions = {
-    headerTitle: <Logo />,
-    headerRight: <RightButtons />,
-    headerStyle: {
-      backgroundColor: "#000000"
-    }
-  };
+  handleMenuButtonPress = () => this.props.navigation.toggleDrawer();
   render() {
     return (
-      <ScrollView style={styles.container}>
-        <TopScrollContainer />
-        <VerticalScrollContainer />
-      </ScrollView>
+      <SafeAreaView style={styles.container}>
+        <View style={styles.headerContainer}>
+          <View style={styles.leftOptions}>
+            <TouchableOpacity
+              style={{
+                paddingTop: 10
+              }}
+              onPress={() => this.handleMenuButtonPress()}
+            >
+              <Image
+                source={require("../assets/images/menu-icon.png")}
+                style={styles.navImage}
+              />
+            </TouchableOpacity>
+            <MonoText
+              style={{
+                color: "#fff",
+                paddingLeft: 25,
+                fontSize: 22,
+                fontWeight: "400",
+                paddingTop: 5
+              }}
+            >
+              Home
+            </MonoText>
+          </View>
+          <View style={styles.rightIcons}>
+            <TouchableWithoutFeedback onPress = {()=> alert("Notification Clicked")} style={styles.rightIconsTouchableContainer}>
+              <Image
+                source={require("../assets/images/notification.png")}
+                style={styles.navNotificationRightImages}
+              />
+            </TouchableWithoutFeedback>
+            <TouchableWithoutFeedback onPress = {()=> alert("Search clicked")} style={styles.rightIconsTouchableContainer}>
+              <Image
+                source={require("../assets/images/search.png")}
+                style={styles.navSearchRightImages}
+              />
+            </TouchableWithoutFeedback>
+          </View>
+        </View>
+        <ScrollView>
+          <TopScrollContainer />
+          <VerticalScrollContainer />
+        </ScrollView>
+      </SafeAreaView>
     );
   }
 }
@@ -80,12 +75,11 @@ const styles = StyleSheet.create({
   leftOptions: {
     flexDirection: "row",
     justifyContent: "flex-start",
-    paddingLeft: 15,
-    paddingTop: 40
+    paddingLeft: 15
   },
   navImage: {
-    height: 30,
-    width: 30,
+    height: 35,
+    width: 35,
     resizeMode: "contain"
   },
   HomeText: {
@@ -98,5 +92,48 @@ const styles = StyleSheet.create({
     height: 50,
     width: 50,
     paddingLeft: 40
+  },
+  headerContainer: {
+    flexDirection: "row",
+    height: 80,
+    backgroundColor: "#000000",
+    justifyContent: "space-between"
+  },
+  navImage: {
+    height: 20,
+    width: 20,
+    resizeMode: "contain",
+    paddingLeft: 10,
+    paddingTop: 20
+  },
+  leftOptions: {
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    paddingLeft: 15,
+    paddingTop: 30
+  },
+  rightIcons: {
+    flexDirection: "row",
+    flex: 1,
+    justifyContent: "flex-end",
+    paddingRight: 15,
+    paddingTop: 40,
+    height: 40
+  },
+  rightIconsTouchableContainer : {
+    height: 40
+  },
+  navNotificationRightImages: {
+    height: 25,
+    width: 25,
+    resizeMode: "contain",
+    paddingBottom: 20,
+    paddingRight: 60
+  },
+  navSearchRightImages: {
+    height: 30,
+    width: 30,
+    resizeMode: "contain",
+    paddingBottom: 20
   }
 });

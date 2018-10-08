@@ -1,18 +1,22 @@
 import React, { Component } from "react";
 import {
   View,
+  SafeAreaView,
   Text,
   StyleSheet,
   Image,
   TouchableNativeFeedback
 } from "react-native";
 
+import {DrawerItems} from "react-navigation"
+
 import { DrawerComponentsText, MemberText } from "../components/StyledText.js";
 
 export default class SideMenu extends Component {
   render() {
     return (
-      <View style={styles.menuContainer}>
+      <SafeAreaView style={styles.menuContainer}>
+      <DrawerItems {...this.props}/>
         <TouchableNativeFeedback
           onPress={() => {
             alert("Profile Section under development");
@@ -87,7 +91,7 @@ export default class SideMenu extends Component {
           <Text style = {styles.bottomText}>Settings</Text>
           <Text>Help</Text>
         </View>
-      </View>
+      </SafeAreaView>
     );
   }
 }
