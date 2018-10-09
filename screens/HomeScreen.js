@@ -13,6 +13,8 @@ import TopScrollContainer from "./TopScrollContainer.js";
 import VerticalScrollContainer from "./VerticalScrollContainer.js";
 import { MonoText } from "../components/StyledText";
 
+import ProfileScreen from "./ProfileScreen.js";
+
 export default class HomeScreen extends React.Component {
   handleMenuButtonPress = () => this.props.navigation.toggleDrawer();
   render() {
@@ -44,13 +46,19 @@ export default class HomeScreen extends React.Component {
             </MonoText>
           </View>
           <View style={styles.rightIcons}>
-            <TouchableWithoutFeedback onPress = {()=> alert("Notification Clicked")} style={styles.rightIconsTouchableContainer}>
+            <TouchableWithoutFeedback
+              onPress={() => this.props.navigation.navigate("Settings")}
+              style={styles.rightIconsTouchableContainer}
+            >
               <Image
                 source={require("../assets/images/notification.png")}
                 style={styles.navNotificationRightImages}
               />
             </TouchableWithoutFeedback>
-            <TouchableWithoutFeedback onPress = {()=> alert("Search clicked")} style={styles.rightIconsTouchableContainer}>
+            <TouchableWithoutFeedback
+              onPress={() => this.props.navigation.navigate("Settings")}
+              style={styles.rightIconsTouchableContainer}
+            >
               <Image
                 source={require("../assets/images/search.png")}
                 style={styles.navSearchRightImages}
@@ -66,6 +74,12 @@ export default class HomeScreen extends React.Component {
     );
   }
 }
+
+// class HomeScreen extends React.Component {
+//   render() {
+//     return <ArticleScreen />;
+//   }
+// }
 
 const styles = StyleSheet.create({
   container: {
@@ -120,7 +134,7 @@ const styles = StyleSheet.create({
     paddingTop: 40,
     height: 40
   },
-  rightIconsTouchableContainer : {
+  rightIconsTouchableContainer: {
     height: 40
   },
   navNotificationRightImages: {

@@ -1,8 +1,9 @@
-1. Fix onPress method for opening drawer when nav drawer button is clicked
-2. Fix error on Notification and search Buttons
+1. Fix onPress method for opening drawer when nav drawer button is clicked - Done
+2. Fix error on Notification and search Buttons 
 3. Connect to DB
-4. Add actual clicks to different pages 
+4. Add actual clicks to different pages - Profile Click done
 5. Add onPress method for articles
 6. Make articleView page
 7. Manage local storage and jwt auth 
 8. Add App icon
+9. Add onClick from child to different page (not working as of now)

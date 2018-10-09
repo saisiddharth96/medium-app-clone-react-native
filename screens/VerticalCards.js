@@ -1,6 +1,13 @@
 import React, { Component } from "react";
 
-import { StyleSheet, View, Dimensions, Text, Image } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Dimensions,
+  Text,
+  Image,
+  TouchableWithoutFeedback
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 var { height, width } = Dimensions.get("window");
@@ -42,7 +49,11 @@ export default class VerticalCards extends Component {
                 fadeDuration={0}
               />
             </View>
-            <Ionicons name="md-bookmark" size={25} style = {styles.BookmarkIcon}/>
+            <Ionicons
+              name="md-bookmark"
+              size={25}
+              style={styles.BookmarkIcon}
+            />
           </View>
         </View>
       </View>
@@ -134,6 +145,6 @@ const styles = StyleSheet.create({
     paddingLeft: 12
   },
   BookmarkIcon: {
-      paddingRight : 20
+    paddingRight: 20
   }
 });

@@ -8,27 +8,19 @@ import {
   TouchableNativeFeedback
 } from "react-native";
 
-import {DrawerItems, createDrawerNavigator} from "react-navigation"
+import { createDrawerNavigator, createStackNavigator } from "react-navigation";
 
 import { DrawerComponentsText, MemberText } from "../components/StyledText.js";
-import SideMenu from "../screens/SideMenu.js";
 
 import HomeScreen from "../screens/HomeScreen";
 import SettingsScreen from "../screens/SettingsScreen";
-
-// export default createDrawerNavigator({
-//   // You could add another route here for authentication.
-//   // Read more at https://reactnavigation.org/docs/en/auth-flow.html
-//   Main: MainTabNavigator,
-// },{
-//   contentComponent : SideMenu
-// });
+import ProfileScreen from "../screens/ProfileScreen"
 
 const customDrawerComponent = props => (
   <SafeAreaView style={styles.menuContainer}>
     <TouchableNativeFeedback
       onPress={() => {
-        alert("Profile Section under development");
+        props.navigation.navigate("ProfileScreen");
       }}
     >
       <View style={styles.profileContainer}>
@@ -43,28 +35,28 @@ const customDrawerComponent = props => (
     <View style={styles.pagesStack}>
       <DrawerComponentsText
         onPress={() => {
-          alert("Coming soon! Stay Tuned");
+          props.navigation.navigate("Settings");
         }}
       >
         Home
       </DrawerComponentsText>
       <DrawerComponentsText
         onPress={() => {
-          alert("Coming soon! Stay Tuned");
+          props.navigation.navigate("Settings");
         }}
       >
         Audio
       </DrawerComponentsText>
       <DrawerComponentsText
         onPress={() => {
-          alert("Coming soon! Stay Tuned");
+          props.navigation.navigate("Settings");
         }}
       >
         Bookmarks
       </DrawerComponentsText>
       <DrawerComponentsText
         onPress={() => {
-          alert("Coming soon! Stay Tuned");
+          props.navigation.navigate("Settings");
         }}
       >
         Interests
@@ -72,21 +64,21 @@ const customDrawerComponent = props => (
       <MemberText>Become a member</MemberText>
       <DrawerComponentsText
         onPress={() => {
-          alert("Coming soon! Stay Tuned");
+          props.navigation.navigate("Settings");
         }}
       >
         New Story
       </DrawerComponentsText>
       <DrawerComponentsText
         onPress={() => {
-          alert("Coming soon! Stay Tuned");
+          props.navigation.navigate("Settings");
         }}
       >
         Stats
       </DrawerComponentsText>
       <DrawerComponentsText
         onPress={() => {
-          alert("Coming soon! Stay Tuned");
+          props.navigation.navigate("Settings");
         }}
       >
         Drafts
@@ -103,16 +95,22 @@ const customDrawerComponent = props => (
   </SafeAreaView>
 );
 
+const DrawerStack = createStackNavigator({
+  Home: HomeScreen,
+  Settings: SettingsScreen,
+  ProfileScreen : ProfileScreen
+},{
+  headerMode : "none"
+});
+
 export default createDrawerNavigator(
   {
-    Home: HomeScreen,
-    Settings: SettingsScreen
+    AppStack : DrawerStack
   },
   {
     contentComponent: customDrawerComponent
   }
 );
-
 
 const styles = StyleSheet.create({
   menuContainer: {
@@ -164,5 +162,5 @@ const styles = StyleSheet.create({
     height: 30,
     width: 30
   },
-  bottomText : {}
+  bottomText: {}
 });

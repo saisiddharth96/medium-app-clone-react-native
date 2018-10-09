@@ -9,7 +9,7 @@ import {
 import { createDrawerNavigator } from "react-navigation";
 
 import HomeScreen from "../screens/HomeScreen";
-import LinksScreen from "../screens/LinksScreen";
+import ArticleScreen from "../screens/ArticleScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import SideMenu from "../screens/SideMenu.js";
 
@@ -21,7 +21,8 @@ export default class MainDrawerNavigator extends React.Component {
 
 const AppDrawerNavigator = createDrawerNavigator({
   Home: HomeScreen,
-  Settings: SettingsScreen
+  Settings: SettingsScreen,
+  ArticleScreen : ArticleScreen
 },{
   contentComponent : SideMenu
 });
