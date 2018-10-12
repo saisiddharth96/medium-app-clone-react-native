@@ -10,9 +10,21 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
+import { withNavigation } from "react-navigation";
+
 var { height, width } = Dimensions.get("window");
 
-export default class VerticalCards extends Component {
+class VerticalCards extends Component {
+  state = {
+    bookmarkColor: "#000000",
+    bookmarked: false
+  };
+  handleBookmarkPress = () => {
+    this.setState({
+      bookmarkColor: this.state.bookmarked ? "#18b500" : "#000", //toggle the state along with color
+      bookmarked: this.state.bookmarked ? false : true
+    });
+  };
   render() {
     return (
       <View
@@ -38,7 +50,13 @@ export default class VerticalCards extends Component {
           />
         </View>
         <View style={styles.AuthorTimeBookmark}>
-          <Text style={styles.AuthorNameText}>Author Name</Text>
+          <TouchableWithoutFeedback
+            onPress={() => this.props.navigation.navigate("ProfileScreen")}
+          >
+            <View>
+              <Text style={styles.AuthorNameText}>Author Name</Text>
+            </View>
+          </TouchableWithoutFeedback>
           <View style={styles.TimeReadBookmarkContainer}>
             <View style={styles.TimeReadContainer}>
               <Text style={styles.dateTextStyle}>Date hours ago</Text>
@@ -53,6 +71,8 @@ export default class VerticalCards extends Component {
               name="md-bookmark"
               size={25}
               style={styles.BookmarkIcon}
+              onPress={this.handleBookmarkPress}
+              color={this.state.bookmarkColor}
             />
           </View>
         </View>
@@ -60,6 +80,8 @@ export default class VerticalCards extends Component {
     );
   }
 }
+
+export default withNavigation(VerticalCards);
 
 const styles = StyleSheet.create({
   cardContainer: {

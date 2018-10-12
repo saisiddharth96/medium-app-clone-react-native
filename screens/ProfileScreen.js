@@ -13,41 +13,13 @@ import {
 import FollowButton from "../components/FollowButton.js";
 import { MonoText } from "../components/StyledText.js";
 import VerticalCards from "./VerticalCards.js";
+import Header from "../components/Header.js";
 
 class ProfileScreen extends Component {
   render() {
     return (
       <SafeAreaView style={styles.container}>
-        <View style={styles.headerContainer}>
-          <View style={styles.leftOptions}>
-            <TouchableOpacity
-              style={{
-                paddingTop: 10
-              }}
-              onPress={() => this.props.navigation.goBack()}
-            >
-              <Image
-                source={require("../assets/images/back.png")}
-                style={styles.backButton}
-              />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.rightIcons}>
-            <FollowButton
-              style={styles.followButton}
-              onPress={this.handleBackgroundColorChange}
-            />
-            <TouchableWithoutFeedback
-              onPress={() => this.props.navigation.navigate("Settings")}
-              style={styles.rightIconsTouchableContainer}
-            >
-              <Image
-                source={require("../assets/images/more-options-menu.png")}
-                style={styles.navSubMenuRight}
-              />
-            </TouchableWithoutFeedback>
-          </View>
-        </View>
+        <Header bgColor = "#f4f4f4" isBackButton HeaderText = "Profile" HeaderTextProp/>
         <ScrollView>
           <View style={styles.profileImageContainer}>
             <Image

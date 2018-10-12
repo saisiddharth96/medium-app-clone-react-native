@@ -1,85 +1,69 @@
 import React from "react";
-import {
-  StyleSheet,
-  ScrollView,
-  View,
-  TouchableOpacity,
-  SafeAreaView,
-  TouchableWithoutFeedback,
-  Image
-} from "react-native";
+import { StyleSheet, ScrollView, SafeAreaView, Image } from "react-native";
+import { AppLoading, Asset, Font } from "expo";
 
 import TopScrollContainer from "./TopScrollContainer.js";
 import VerticalScrollContainer from "./VerticalScrollContainer.js";
-import { MonoText } from "../components/StyledText";
+import Header from "../components/Header.js";
 
-import ProfileScreen from "./ProfileScreen.js";
+import ArticleScreen from "./ArticleScreen";
 
-export default class HomeScreen extends React.Component {
-  handleMenuButtonPress = () => this.props.navigation.toggleDrawer();
-  render() {
-    return (
-      <SafeAreaView style={styles.container}>
-        <View style={styles.headerContainer}>
-          <View style={styles.leftOptions}>
-            <TouchableOpacity
-              style={{
-                paddingTop: 10
-              }}
-              onPress={() => this.handleMenuButtonPress()}
-            >
-              <Image
-                source={require("../assets/images/menu-icon.png")}
-                style={styles.navImage}
-              />
-            </TouchableOpacity>
-            <MonoText
-              style={{
-                color: "#fff",
-                paddingLeft: 25,
-                fontSize: 22,
-                fontWeight: "400",
-                paddingTop: 5
-              }}
-            >
-              Home
-            </MonoText>
-          </View>
-          <View style={styles.rightIcons}>
-            <TouchableWithoutFeedback
-              onPress={() => this.props.navigation.navigate("Settings")}
-              style={styles.rightIconsTouchableContainer}
-            >
-              <Image
-                source={require("../assets/images/notification.png")}
-                style={styles.navNotificationRightImages}
-              />
-            </TouchableWithoutFeedback>
-            <TouchableWithoutFeedback
-              onPress={() => this.props.navigation.navigate("Settings")}
-              style={styles.rightIconsTouchableContainer}
-            >
-              <Image
-                source={require("../assets/images/search.png")}
-                style={styles.navSearchRightImages}
-              />
-            </TouchableWithoutFeedback>
-          </View>
-        </View>
-        <ScrollView>
-          <TopScrollContainer />
-          <VerticalScrollContainer />
-        </ScrollView>
-      </SafeAreaView>
-    );
-  }
+function cacheImages(images) {
+  return images.map(image => {
+    if (typeof image === "string") {
+      return Image.prefetch(image);
+    } else {
+      return Asset.fromModule(image).downloadAsync();
+    }
+  });
 }
 
-// class HomeScreen extends React.Component {
+// export default class HomeScreen extends React.Component {
+//   state = {
+//     isReady: false
+//   };
+
+//   async _loadAssetsAsync() {
+//     const imageAssets = cacheImages([
+//       require("../assets/images/back.png"),
+//       require("../assets/images/icon.png"),
+//       require("../assets/images/medium-logo.png"),
+//       require("../assets/images/menu-icon.png"),
+//       require("../assets/images/more-options-menu.png"),
+//       require("../assets/images/notification.png"),
+//       require("../assets/images/placeholder.png"),
+//       require("../assets/images/profile-image-holder.png"),
+//       require("../assets/images/search.png")
+//     ]);
+//     await Promise.all([...imageAssets]);
+//   }
 //   render() {
-//     return <ArticleScreen />;
+//     if (!this.state.isReady) {
+//       return (
+//         <AppLoading
+//           startAsync={this._loadAssetsAsync}
+//           onFinish={() => this.setState({ isReady: true })}
+//           onError={console.warn}
+//         />
+//       );
+//     }
+//     return (
+//       <SafeAreaView style={styles.container}>
+//         <Header bgColor="#000" HeaderText = "Home"/>
+//         <ScrollView showsVerticalScrollIndicator={false}>
+//           <TopScrollContainer />
+//           <VerticalScrollContainer />
+//         </ScrollView>
+//       </SafeAreaView>
+//     );
 //   }
 // }
+
+export default class HomeScreen extends React.Component {
+  render() {
+    return <ArticleScreen />;
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
