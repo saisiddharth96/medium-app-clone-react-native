@@ -7,7 +7,7 @@ export default class ArticleScreen extends Component {
   render() {
     return (
       <View>
-        <Header bgColor = "#f9f9f9" isBackButton />
+        <Header articleHeader/>
       </View>
     )
   }

@@ -11,71 +11,141 @@ import {
 import { MonoText } from "./StyledText.js";
 
 import { withNavigation } from "react-navigation";
+import { Ionicons } from "@expo/vector-icons";
 
 export class Header extends Component {
   handleMenuButtonPress = () => this.props.navigation.toggleDrawer();
+  state = {
+    bookmarkColor: "#000000",
+    bookmarked: false
+  };
+  handleBookmarkPress = () => {
+    this.setState({
+      bookmarkColor: this.state.bookmarked ? "#18b500" : "#000", //toggle the state along with color
+      bookmarked: this.state.bookmarked ? false : true
+    });
+  };
 
   render() {
     return (
-      <SafeAreaView
-        style={[
-          { backgroundColor: this.props.bgColor },
-          styles.headerContainer
-        ]}
-      >
-        <View style={styles.leftOptions}>
-          <TouchableOpacity
-            style={{
-              paddingTop: 10
-            }}
-            onPress={() =>
-              this.props.isBackButton
-                ? this.props.navigation.goBack()
-                : this.handleMenuButtonPress()
-            }
-          >
-            <Image
-              source={
-                this.props.isBackButton
-                  ? require("../assets/images/back.png")
-                  : require("../assets/images/menu-icon.png")
-              }
-              style={styles.navImage}
-            />
-          </TouchableOpacity>
-          <MonoText
-            style={{
-              color: this.props.HeaderTextProp ? "#000" : "#fff",
-              paddingLeft: 25,
-              fontSize: this.props.HeaderTextProp ? 20 : 22,
-              fontWeight: "400",
-              paddingTop: this.props.HeaderTextProp ? 5 : 5
-            }}
-          >
-            {this.props.HeaderText}
-          </MonoText>
-        </View>
-        <View style={styles.rightIcons}>
-          <TouchableWithoutFeedback
-            onPress={() => this.props.navigation.navigate("Settings")}
-            style={styles.rightIconsTouchableContainer}
-          >
-            <Image
-              source={require("../assets/images/notification.png")}
-              style={styles.navNotificationRightImages}
-            />
-          </TouchableWithoutFeedback>
+      <SafeAreaView>
+        {this.props.isMainHeader ? (
+          <View style={[styles.headerContainer]}>
+            <View style={styles.leftOptions}>
+              <TouchableOpacity
+                style={{
+                  paddingTop: 10
+                }}
+                onPress={() => this.handleMenuButtonPress()}
+              >
+                <Image
+                  source={require("../assets/images/menu-icon.png")}
+                  style={styles.navImage}
+                />
+              </TouchableOpacity>
+              <MonoText
+                style={{
+                  color: "#fff",
+                  paddingLeft: 25,
+                  fontSize: 22,
+                  fontWeight: "400",
+                  paddingTop: 5
+                }}
+              >
+                Home
+              </MonoText>
+            </View>
+            <View style={styles.rightIcons}>
+              <TouchableWithoutFeedback
+                onPress={() => this.props.navigation.navigate("Settings")}
+                style={styles.rightIconsTouchableContainer}
+              >
+                <Image
+                  source={require("../assets/images/notification.png")}
+                  style={styles.navNotificationRightImages}
+                />
+              </TouchableWithoutFeedback>
 
-          <TouchableWithoutFeedback
-            onPress={() => this.props.navigation.navigate("Settings")}
-            style={styles.rightIconsTouchableContainer}
-          >
-            <Image
-              source={require("../assets/images/search.png")}
-              style={styles.navSearchRightImages}
-            />
-          </TouchableWithoutFeedback>
-        </View>
+              <TouchableWithoutFeedback
+                onPress={() => this.props.navigation.navigate("Settings")}
+                style={styles.rightIconsTouchableContainer}
+              >
+                <Image
+                  source={require("../assets/images/search.png")}
+                  style={styles.navSearchRightImages}
+                />
+              </TouchableWithoutFeedback>
+            </View>
+          </View>
+        ) : null}
+        {this.props.articleHeader ? (
+          <View style={articleHeaderStyles.headerContainer}>
+            <View style={articleHeaderStyles.backProfileImageContainer}>
+              <Image
+                source={require("../assets/images/back.png")}
+                style={articleHeaderStyles.back}
+              />
+            </View>
+            <View style={articleHeaderStyles.profileImageNameContainer}>
+              <View
+                style={{
+                  borderTopRightRadius: 50,
+                  borderTopWidth: 3,
+                  borderRightWidth: 1,
+                  borderBottomRightRadius: 50,
+                  borderTopLeftRadius: 50,
+                  borderLeftWidth: 1,
+                  borderBottomLeftRadius: 50,
+
+                  borderBottomWidth: 3,
+
+                  borderColor: "#18b500"
+                }}
+              >
+                <Image
+                  source={require("../assets/images/placeholder.png")}
+                  style={articleHeaderStyles.profilePicture}
+                />
+              </View>
+              <View style={articleHeaderStyles.nameTimeContainer}>
+                <MonoText style={{ fontWeight: "500", fontSize: 18 }}>
+                  Lorem ipsum
+                </MonoText>
+                <View style={articleHeaderStyles.timeContainer}>
+                  <MonoText style={{ fontWeight: "400", fontSize: 14 }}>
+                    Lorem ipsum
+                  </MonoText>
+                  <MonoText
+                    style={{ fontWeight: "400", fontSize: 14, paddingLeft: 5 }}
+                  >
+                    .
+                  </MonoText>
+                  <MonoText
+                    style={{ fontWeight: "400", fontSize: 14, paddingLeft: 5 }}
+                  >
+                    Lorem ipsum
+                  </MonoText>
+                </View>
+              </View>
+            </View>
+            <View style={articleHeaderStyles.headerIconsContainer}>
+              <View style={articleHeaderStyles.headerIcons}>
+                <Ionicons
+                  name="md-bookmark"
+                  size={30}
+                  onPress={this.handleBookmarkPress}
+                  color={this.state.bookmarkColor}
+                />
+              </View>
+              <View style={articleHeaderStyles.headerIcons}>
+                <Image
+                  source={require("../assets/images/more-options-menu.png")}
+                  style={articleHeaderStyles.moreOptionsMenu}
+                />
+              </View>
+            </View>
+          </View>
+        ) : null}
       </SafeAreaView>
     );
   }
@@ -83,11 +153,59 @@ export class Header extends Component {
 
 export default withNavigation(Header);
 
+const articleHeaderStyles = StyleSheet.create({
+  headerContainer: {
+    flexDirection: "row",
+    height: 80,
+    justifyContent: "space-around",
+    alignItems: "center",
+    backgroundColor: "#f4f4f4",
+    paddingTop: 15
+  },
+  backProfileImageContainer: {
+    paddingLeft: 10,
+    paddingTop: 10
+  },
+  back: {
+    height: 35,
+    width: 35
+  },
+  profileImageNameContainer: {
+    flexDirection: "row",
+    paddingLeft: 5,
+    paddingTop: 10
+  },
+  nameTimeContainer: {
+    paddingLeft: 15
+  },
+  timeContainer: {
+    flexDirection: "row"
+  },
+  profilePicture: {
+    height: 40,
+    width: 40,
+    borderRadius: 40
+  },
+  headerIconsContainer: {
+    flexDirection: "row",
+    alignItems: "flex-end",
+    paddingTop: 10
+  },
+  headerIcons: {
+    paddingLeft: 10
+  },
+  moreOptionsMenu: {
+    height: 30,
+    width: 30
+  }
+});
+
 const styles = StyleSheet.create({
   headerContainer: {
     flexDirection: "row",
     height: 80,
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    backgroundColor: "#000"
   },
   leftOptions: {
     flexDirection: "row",
@@ -99,11 +217,6 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     paddingBottom: 20,
     color: "#fff"
-  },
-  icon: {
-    height: 50,
-    width: 50,
-    paddingLeft: 40
   },
   navImage: {
     height: 20,
